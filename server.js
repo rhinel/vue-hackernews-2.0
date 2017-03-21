@@ -58,6 +58,8 @@ app.use('/public', serve('./public', true))
 app.use('/manifest.json', serve('./manifest.json', true))
 app.use('/service-worker.js', serve('./dist/service-worker.js'))
 
+let httpsServer = https.createServer(credentials, app)
+
 app.get('*', (req, res) => {
   if (!renderer) {
     return res.end('waiting for compilation... refresh in a moment.')
@@ -91,8 +93,6 @@ const port = process.env.PORT || 8080
   console.log(`server started at localhost:${port}`)
 })*/
 
-let httpServer = http.createServer(app)
-let httpsServer = https.createServer(credentials, app)
 httpsServer.listen(port, ()=>{
   console.log(`server started at localhost:${port}`)
 })
