@@ -1,3 +1,9 @@
+//启动服务
+let https = require('https')
+let privateKey  = fs.readFileSync('../../ssl-key/ssl-key.key', 'utf8')
+let certificate = fs.readFileSync('../../ssl-key/ssl-key.crt', 'utf8')
+let credentials = {key: privateKey, cert: certificate}
+
 const fs = require('fs')
 const path = require('path')
 const express = require('express')
@@ -80,6 +86,13 @@ app.get('*', (req, res) => {
 })
 
 const port = process.env.PORT || 8080
-app.listen(port, () => {
+
+/*app.listen(port, () => {
+  console.log(`server started at localhost:${port}`)
+})*/
+
+let httpServer = http.createServer(app)
+let httpsServer = https.createServer(credentials, app)
+httpsServer.listen(port, ()=>{
   console.log(`server started at localhost:${port}`)
 })
