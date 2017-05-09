@@ -1,3 +1,4 @@
+const glob = require('glob')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const base = require('./webpack.base.config')
@@ -48,7 +49,25 @@ if (process.env.NODE_ENV === 'production') {
       cacheId: 'vue-hn',
       filename: 'service-worker.js',
       dontCacheBustUrlsMatching: /./,
-      staticFileGlobsIgnorePatterns: [/index\.html$/, /\.map$/]
+      staticFileGlobsIgnorePatterns: [/\.map$/, /\.json$/],
+      runtimeCaching: [
+        {
+          urlPattern: '/',
+          handler: 'networkFirst'
+        },
+        {
+          urlPattern: /\/(top|new|show|ask|jobs)/,
+          handler: 'networkFirst'
+        },
+        {
+          urlPattern: '/item/:id',
+          handler: 'networkFirst'
+        },
+        {
+          urlPattern: '/user/:id',
+          handler: 'networkFirst'
+        }
+      ]
     })
   )
 }
