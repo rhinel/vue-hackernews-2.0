@@ -1,8 +1,8 @@
 //启动服务
 let https = require('https')
 const fs = require('fs')
-let privateKey  = fs.readFileSync('../ssl-key/ssl-key.key', 'utf8')
-let certificate = fs.readFileSync('../ssl-key/ssl-key.crt', 'utf8')
+let privateKey  = fs.readFileSync('../_ssl-key/ssl-rhinel.xyz/ssl-key.key', 'utf8')
+let certificate = fs.readFileSync('../_ssl-key/ssl-rhinel.xyz/ssl-key.crt', 'utf8')
 let credentials = {key: privateKey, cert: certificate}
 
 const path = require('path')
